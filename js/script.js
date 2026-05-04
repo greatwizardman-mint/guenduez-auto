@@ -27,6 +27,35 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    const header = document.querySelector('header');
+    let lastScroll = window.pageYOffset;
+    window.addEventListener('scroll', function() {
+        const currentScroll = window.pageYOffset;
+        if (header) {
+            if (currentScroll > lastScroll && currentScroll > 120) {
+                header.classList.add('header-hidden');
+            } else {
+                header.classList.remove('header-hidden');
+            }
+        }
+        lastScroll = currentScroll <= 0 ? 0 : currentScroll;
+    });
+
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const nav = document.querySelector('header nav');
+    if (mobileMenuToggle && nav) {
+        mobileMenuToggle.addEventListener('click', function() {
+            const expanded = nav.classList.toggle('expanded');
+            if (expanded) {
+                nav.classList.remove('collapsed');
+                mobileMenuToggle.setAttribute('aria-expanded', 'true');
+            } else {
+                nav.classList.add('collapsed');
+                mobileMenuToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+
     if (consentBanner && acceptBtn && declineBtn) {
         if (!localStorage.getItem('cookieConsent')) {
             consentBanner.style.display = 'block';
