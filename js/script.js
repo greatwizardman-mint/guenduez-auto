@@ -44,14 +44,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
     const nav = document.querySelector('header nav');
     if (mobileMenuToggle && nav) {
+        // Standardmäßig collapsed auf mobilen Geräten
+        if (window.innerWidth <= 768) {
+            nav.classList.add('collapsed');
+        }
         mobileMenuToggle.addEventListener('click', function() {
             const expanded = nav.classList.toggle('expanded');
             if (expanded) {
                 nav.classList.remove('collapsed');
                 mobileMenuToggle.setAttribute('aria-expanded', 'true');
+                mobileMenuToggle.textContent = '✕'; // Schließen-Symbol
             } else {
                 nav.classList.add('collapsed');
                 mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                mobileMenuToggle.textContent = '☰'; // Menü-Symbol
             }
         });
     }
